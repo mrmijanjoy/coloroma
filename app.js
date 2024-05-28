@@ -1,16 +1,28 @@
 //Global Selections
 
 const colorDivs = document.querySelectorAll('.color');
-const generateBtn = document.querySelectorAll('.generate');
+const generateBtn = document.querySelector('.generate');
 const sliders = document.querySelectorAll('input[type="range"]');
 const currentHex = document.querySelectorAll('.color h2');
 const popup = document.querySelector('.copy-container');
+const adjustButton = document.querySelectorAll('.adjust');
+const lockButton = document.querySelectorAll('.lock');
+const closeAdjustments = document.querySelectorAll('.close-adjusment');
+const sliderContainers = document.querySelectorAll('.sliders');
 let initialColors;
 
 //Event Listeners
 
+generateBtn.addEventListener("click", randomColors);
+
 sliders.forEach(slider => {
 	slider.addEventListener("input", hslControls);
+});
+
+colorDivs.forEach((div, index) => {
+	div.addEventListener("change", () => {
+		updateTextUI(index);
+	});
 });
 
 currentHex.forEach(hex => {
@@ -23,6 +35,18 @@ popup.addEventListener('transitionend', () => {
 	const popupBox = popup.children[0];
 	popup.classList.remove("active");
 	popupBox.classList.remove("active");
+});
+
+adjustButton.forEach((button, index) => {
+	button.addEventListener("click", () => {
+		openAdjustmentPanel(index);
+	});
+});
+
+closeAdjustments.forEach((button, index) => {
+	button.addEventListener("click", () => {
+		closeAdjustmentPanel(index);
+	});
 });
 
 //Functions
@@ -83,8 +107,16 @@ function randomColors(){
 
 		colorizeSliders(color, hue, brightness, saturation);
 	});
+
 	// Reset
 	resetInputs(); 
+
+	// check buttons
+	adjustButton.forEach((button, index) => {
+		checkTextContrast(initialColors[index], button);
+		checkTextContrast(initialColors[index], lockButton[index]);
+	});
+
 }
 
 //Text contrast 
@@ -173,6 +205,13 @@ function copyToClipboard(hex) {
 	const popupBox = popup.children[0];
 	popup.classList.add("active");
 	popupBox.classList.add("active");
+}
+
+function openAdjustmentPanel(index) {
+	sliderContainers[index].classList.toggle("active");
+}
+function closeAdjustmentPanel(index) {
+	sliderContainers[index].classList.remove("active");
 }
 
 randomColors();

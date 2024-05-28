@@ -35,14 +35,14 @@ path, i , svg {
 	position: absolute;
 	bottom: 0%;
 	background: rgb(255, 255, 255);
-/*	opacity: 0;*/
+	opacity: 0;
 	padding: 1rem;
 	width: 80%;
 	border-top-right-radius: 1rem;
 	border-top-left-radius: 1rem;
-/*	transform: translateY(100px);*/
-	transition: 0.5 all ease-in-out;
-/*	pointer-events: none;*/
+	transform: translateY(100px);
+	transition: transform 0.5 all ease-in-out;
+	pointer-events: none;
 }
 .sliders.active {
 	opacity: 1;
