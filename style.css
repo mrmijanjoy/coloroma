@@ -72,7 +72,7 @@ path, i , svg {
 	justify-content: space-evenly;
 	height: 20vh;
 }
-.panel button {
+.panel button, .close-save, .close-library {
 	font-size: 1.2rem;
 	margin: 1rem;
 	padding: 1rem 2rem;
@@ -80,7 +80,7 @@ path, i , svg {
 	color: white;
 	cursor: pointer;
 	border: none;
-	border-radius: 1px;
+	border-radius: 10px;
 }
 .panel p {
 	font-size: 1.2rem;
@@ -106,7 +106,7 @@ input[type="range"] {
 	border-radius: 1rem;
 	cursor: pointer;
 }
-.copy-container {
+.copy-container, .save-container, .library-container {
 	position: fixed;
 	top: 0%;
 	left: 0%;
@@ -119,7 +119,7 @@ input[type="range"] {
 	opacity: 0;
 	pointer-events: none;
 }
-.copy-popup {
+.copy-popup, .save-popup, .library-popup {
 	background: white;
 	display: flex;
 	flex-direction: column;
@@ -131,14 +131,32 @@ input[type="range"] {
 	min-width: 30%;
 	min-height: 30vh;
 }
-.copy-popup h4 {
-	font-size: 2rem;
+.copy-popup h3, .save-popup h3, .library-popup h3 {
+	font-size: 1.5rem;
 	padding: 2rem;
 }
-.copy-container.active {
+.copy-container.active, .save-container.active, .library-container.active {
 	opacity: 1;
 	pointer-events: all;
 }
-.copy-container.active {
+.copy-container.active, .save-container.active, .library-container.active {
 	transform: translateY(0rem);
+}
+.save-name, .library-name {
+	font-size: 1rem;
+	padding: 1rem;
+}
+.close-save, .close-library {
+	border-top-right-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+	padding: 0.5rem;
+}
+.submit-save {
+	margin: 2rem;
+	padding: 1rem 3rem;
+	background: rgb(60, 60, 92);
+	cursor: pointer;
+	color: white;
+	border: none;
+	border-radius: 10px;
 }

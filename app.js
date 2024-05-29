@@ -10,6 +10,7 @@ const lockButton = document.querySelectorAll('.lock');
 const closeAdjustments = document.querySelectorAll('.close-adjusment');
 const sliderContainers = document.querySelectorAll('.sliders');
 let initialColors;
+let savedPalettes = [];
 
 //Event Listeners
 
@@ -46,6 +47,12 @@ adjustButton.forEach((button, index) => {
 closeAdjustments.forEach((button, index) => {
 	button.addEventListener("click", () => {
 		closeAdjustmentPanel(index);
+	});
+});
+
+lockButton.forEach((button, index) => {
+	button.addEventListener("click", () => {
+		lockLayer(index);
 	});
 });
 
@@ -86,7 +93,12 @@ function randomColors(){
 
 		//Add it to array
 
-		initialColors.push(chroma(randomColor).hex());
+		if (div.classList.contains('locked')) {
+			initialColors.push(hexText.innerText);
+			return;
+		} else {
+			initialColors.push(chroma(randomColor).hex());
+		}
 
 		//Add color to Background
 
@@ -212,6 +224,43 @@ function openAdjustmentPanel(index) {
 }
 function closeAdjustmentPanel(index) {
 	sliderContainers[index].classList.remove("active");
+}
+
+// lock feature
+function lockLayer(e, index) {
+	const lockSVG = e.target.children[0];
+	const activeBg = colorDivs[index];
+	activeBg.classList.toggle("locked");
+
+	if (lockSVG.classList.contains("fa-lock-open")) {
+		e.target.innerHTML = '<i class="fas fa-lock"></i>';
+	} else {
+		e.target.innerHTML = '<i class="fas fa-lock-open"></i>';
+	}
+}
+
+//Save palette
+
+const saveBtn = document.querySelector(".save");
+const submitSave = document.querySelector(".submit-save");
+const closeSave = document.querySelector(".close-save");
+const saveContainer = document.querySelector('.save-container');
+const saveInput = document.querySelector('.save-container input');
+
+//event listener
+saveBtn.addEventListener("click", openpalette);
+closeSave.addEventListener("click", closepalette);
+
+function openpalette(e) {
+	const popup = saveContainer.children[0];
+	saveContainer.classList.add('active');
+	popup.classList.add('active');
+}
+
+function closepalette(e) {
+	const popup = saveContainer.children[0];
+	saveContainer.classList.remove('active');
+	popup.classList.remove('active');
 }
 
 randomColors();
